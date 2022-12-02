@@ -1,0 +1,41 @@
+PREFIX rr: <http://www.w3.org/ns/r2rml#>
+PREFIX rml: <http://semweb.mmlab.be/ns/rml#>
+PREFIX ql: <http://semweb.mmlab.be/ns/ql#>
+PREFIX carml: <http://carml.taxonic.com/carml/>
+PREFIX schema: <http://schema.org/>
+
+<#MapCanton>
+	a rr:TriplesMap;
+	
+	rml:logicalSource [
+		rml:source [
+			a carml:Stream;
+			carml:streamName "";
+			carml:declaresNamespace [
+				carml:namespacePrefix "eCH-0071";
+				carml:namespaceName "http://www.ech.ch/xmlns/eCH-0071/1"
+			]
+		];
+		rml:referenceFormulation ql:XPath;
+		rml:iterator "/eCH-0071:nomenclature/cantons/canton"
+	];
+	
+	rr:subjectMap [
+		rr:template "http://classifications.data.admin.ch/canton/{cantonAbbreviation}";
+		rr:class schema:Place
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:identifier;
+		rr:objectMap [
+			rml:reference "cantonAbbreviation"
+		]
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate schema:name;
+		rr:objectMap [
+			rml:reference "cantonLongName"
+		]
+	].
+	

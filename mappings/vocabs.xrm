@@ -1,0 +1,23 @@
+vocabulary ex {
+	prefix "ex" "http://example.com/"
+}
+
+vocabulary schema {
+	prefix "schema" "http://schema.org/"
+
+	classes
+		Place
+
+	properties
+		containedInPlace
+		identifier
+		name
+}
+
+vocabulary rdfs {
+	prefix "rdfs" "http://www.w3.org/2000/01/rdf-schema#"
+
+	properties
+		seeAlso
+}
+

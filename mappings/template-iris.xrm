@@ -1,0 +1,5 @@
+template cantonIri "http://classifications.data.admin.ch/canton/{0}"
+template districtIri "http://classifications.data.admin.ch/district/{0}"
+template districtVersionIri "http://classifications.data.admin.ch/districtentryversion/{0}"
+template municipalityIri "http://classifications.data.admin.ch/municipality/{0}"
+template municipalityVersionIri "http://classifications.data.admin.ch/municipalityversion/{0}"

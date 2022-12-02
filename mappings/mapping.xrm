@@ -1,0 +1,12 @@
+output carml
+
+map MapCanton from Canton {
+    subject template cantonIri with cantonAbbreviation;
+
+    types
+        schema.Place
+        
+    properties 
+    	schema.identifier from cantonAbbreviation;
+      schema.name from cantonLongName;
+}
