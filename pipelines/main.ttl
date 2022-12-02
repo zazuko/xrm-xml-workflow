@@ -29,40 +29,33 @@
   ], [ a p:Variable;
     p:name "mappingFile";
     p:value "src-gen/mapping.carml.ttl"
+  ], [ a p:Variable;
+    p:name "CARML_SERVICE";
+    p:value "https://carml.zazukoians.org/"
   ].
 
 #
 # Pipelines
 #
 
-<fileToFile> a p:Pipeline;
+<toFile> a p:Pipeline;
   p:variables <defaultVars>;
   p:steps [
     p:stepList (
       <readFile>
-      <convertXml>
+      <carml>
       <serialize>
       <writeFile>
     )
   ].
 
-<toFile> a p:Pipeline;
-  p:variables <defaultVars>;
-  p:steps [
-    p:stepList (
-      <listMappingCsvwMetaFiles>
-      <forEachMappingCsvwMetaFile>
-      <serialize>
-      <writeFile>
-    )
-  ].
 
 <toStore> a p:Pipeline;
   p:variables <defaultVars>;
   p:steps [
     p:stepList (
-      <listMappingCsvwMetaFiles>
-      <forEachMappingCsvwMetaFile>
+      <readFile>
+      <carml>
       <setDestinationGraph>
       <graphStorePut>
     )
@@ -100,67 +93,35 @@
   ];
   code:arguments ("outputFile"^^p:VariableName).
 
-<convertXml> a p:Step;
-  code:implementedBy [ a code:EcmaScriptModule;
-    code:link <node:barnard59-carml/transform.js#default>
+<readCarmlMappingFile> a p:Step;
+  code:implementedBy [ a code:EcmaScript;
+    code:link <node:fs#createReadStream>
   ];
-  code:arguments[
-    code:name "mappingFile";
-    code:value "mappingFile"^^p:VariableName
+  code:arguments ("mappingFile"^^p:VariableName).
+
+<carml> a p:Step;
+  code:implementedBy [ a code:EcmaScript;
+    code:link <node:barnard59-carml-service>
+  ];
+  code:arguments [
+    code:name "mapping";
+    code:value <carmlMapping>
+  ], [
+    code:name "serviceUrl";
+    code:value "CARML_SERVICE"^^p:VariableName
   ].
 
-<listMappingCsvwMetaFiles> a p:Step;
-  code:implementedBy [ a code:EcmaScriptModule;
-    code:link <node:barnard59-base#glob>
-  ];
-  code:arguments[
-    code:name "pattern";
-    code:value "mappingFilePattern"^^p:VariableName
-  ].
-
-<forEachMappingCsvwMetaFile> a p:Step;
-  code:implementedBy [ a code:EcmaScriptModule;
-    code:link <node:barnard59-base/forEach.js#default>
-  ];
-  code:arguments (<readMappingCsvTriples> "csvMapping").
-
-<readMappingCsvTriples> a p:Pipeline, p:ReadableObjectMode;
+<carmlMapping> a p:Pipeline, p:ReadableObjectMode;
   p:steps [
     p:stepList (
-      <readCsv>
-      <parseCsv>
-      <removeCsvwTriples>
-    )
+      <readCarmlMappingFile>
+      <parseN3>
+     )
   ].
 
 #
 # Common Subpipelines & Steps
 #
-<readCsv> a p:Step;
-  code:implementedBy [ a code:EcmaScriptModule;
-    code:link <node:barnard59-csvw#fetch>
-  ];
-  code:arguments [
-    code:name "csvw";
-    code:value "file:${csvMapping}"^^code:EcmaScriptTemplateLiteral
-  ].
-
-<parseCsv> a p:Step;
-  code:implementedBy [ a code:EcmaScriptModule;
-    code:link <node:barnard59-formats/csvw.js#parse>
-  ];
-  code:arguments [
-    code:name "metadata";
-    code:value <parseMetadata>
-  ].
-
-<removeCsvwTriples> a p:Step ;
-  code:implementedBy [ a code:EcmaScriptModule;
-    code:link <node:barnard59-base/filter.js#default>
-  ];
-  code:arguments ([ a code:EcmaScriptModule;
-    code:link <file:../lib/isNotCsvwTriple.js#default>
-  ]).
 
 <flatten> a p:Step;
   code:implementedBy [ a code:EcmaScriptModule;
@@ -170,25 +131,6 @@
 <serialize> a p:Step;
   code:implementedBy [ a code:EcmaScriptModule;
     code:link <node:barnard59-formats/ntriples.js#serialize>
-  ].
-
-<parseMetadata> a p:Pipeline, p:ReadableObjectMode;
-  p:steps [
-    p:stepList (
-      <readMetadataJson>
-      <parseMetadataJson>
-    )
-  ].
-
-<readMetadataJson> a p:Step;
-  code:implementedBy [ a code:EcmaScriptModule;
-    code:link <node:fs#createReadStream>
-  ];
-  code:arguments ("csvMapping"^^p:VariableName).
-
-<parseMetadataJson> a p:Step;
-  code:implementedBy [ a code:EcmaScriptModule;
-    code:link <node:barnard59-formats/jsonld.js#parse>
   ].
 
 <setDestinationGraph> a p:Step;
