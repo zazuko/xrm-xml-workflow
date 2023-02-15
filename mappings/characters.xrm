@@ -1,0 +1,48 @@
+
+output rml
+
+
+// Json: properties & Json 
+logical-source characters {
+	type json
+	source "example-data/characters.json"
+	iterator "$.characters[*]"
+
+	referenceables
+		id
+		firstname
+		lastname
+		hair
+}
+
+map character from characters {
+	subject template "http://example.org/character/{0}" with id;
+
+	types
+		schema.Person
+
+	properties
+		schema.givenName from firstname;
+		schema.lastName from lastname;
+		dbo.hairColor from hair;
+}
+
+
+// vocabulary: classes and properties
+vocabulary schema {
+	prefix "schema" "http://schema.org/"
+
+	classes
+		Person
+
+	properties
+		givenName
+		lastName
+}
+
+vocabulary dbo {
+	prefix "dbo" "http://dbpedia.org/ontology/"
+
+	properties
+		hairColor
+}
