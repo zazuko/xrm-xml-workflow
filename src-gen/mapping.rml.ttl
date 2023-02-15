@@ -1,0 +1,25 @@
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix : <http://example.org/rules/> .
+@prefix schema: <http://schema.org/> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+
+:TriplesMap a rr:TriplesMap;
+            rml:logicalSource [
+                  rml:source "example-data/characters.json";
+                  rml:referenceFormulation ql:JSONPath;
+                  rml:iterator "$.characters[*]"
+              ].
+
+:TriplesMap rr:subjectMap [
+                              rr:template "http://example.org/character/{id}"
+                          ].
+
+:TriplesMap rr:predicateObjectMap [
+                                      rr:predicate rdf:type;
+                                      rr:objectMap [
+                                                       rr:constant schema:Person
+                                                   ]
+                                  ].

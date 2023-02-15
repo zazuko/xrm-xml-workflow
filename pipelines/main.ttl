@@ -24,14 +24,8 @@
     p:name "destinationGraph";
     p:value "https://example.org/graph/users"
   ], [ a p:Variable;
-    p:name "inputFile";
-    p:value "input/eCH0071.xml"
-  ], [ a p:Variable;
     p:name "mappingFile";
-    p:value "src-gen/mapping.carml.ttl"
-  ], [ a p:Variable;
-    p:name "CARML_SERVICE";
-    p:value "https://carml.zazukoians.org/"
+    p:value "src-gen/mapping.rml.ttl"
   ].
 
 #
@@ -42,29 +36,16 @@
   p:variables <defaultVars>;
   p:steps [
     p:stepList (
-      <readFile>
-      <carml>
-      <serialize>
-      <writeFile>
+      <produceTriplesFile>
     )
   ].
 
-
-<toStore> a p:Pipeline;
-  p:variables <defaultVars>;
-  p:steps [
-    p:stepList (
-      <readFile>
-      <carml>
-      <setDestinationGraph>
-      <graphStorePut>
-    )
-  ].
 
 <fileToStore> a p:Pipeline;
   p:variables <defaultVars>;
   p:steps [
     p:stepList (
+      <produceFile>
       <readFile>
       <parseN3>
       <setDestinationGraph>
@@ -73,7 +54,18 @@
   ].
 
 #
-# Steps
+# Produce triples
+#
+
+<produceTriplesFile> a p:Step;
+   code:implementedBy [ a code:EcmaScriptModule;
+                        code:link <file:../step.js#createReadable>
+     ] ;
+  code:arguments ("mappingFile"^^p:VariableName "outputFile"^^p:VariableName).
+
+
+#
+# Upload results
 #
 
 <readFile> a p:Step;
@@ -87,72 +79,27 @@
     code:link <node:barnard59-formats/n3.js#parse>
   ].
 
-<writeFile> a p:Step;
-  code:implementedBy [ a code:EcmaScriptModule;
-    code:link <node:fs#createWriteStream>
-  ];
-  code:arguments ("outputFile"^^p:VariableName).
-
-<readCarmlMappingFile> a p:Step;
-  code:implementedBy [ a code:EcmaScript;
-    code:link <node:fs#createReadStream>
-  ];
-  code:arguments ("mappingFile"^^p:VariableName).
-
-<carml> a p:Step;
-  code:implementedBy [ a code:EcmaScript;
-    code:link <node:barnard59-carml-service>
-  ];
-  code:arguments [
-    code:name "mapping";
-    code:value <carmlMapping>
-  ], [
-    code:name "serviceUrl";
-    code:value "CARML_SERVICE"^^p:VariableName
-  ].
-
-<carmlMapping> a p:Pipeline, p:ReadableObjectMode;
-  p:steps [
-    p:stepList (
-      <readCarmlMappingFile>
-      <parseN3>
-     )
-  ].
-
-#
-# Common Subpipelines & Steps
-#
-
-<flatten> a p:Step;
-  code:implementedBy [ a code:EcmaScriptModule;
-    code:link <node:barnard59-base/flatten.js#default>;
-  ].
-
-<serialize> a p:Step;
-  code:implementedBy [ a code:EcmaScriptModule;
-    code:link <node:barnard59-formats/ntriples.js#serialize>
-  ].
-
 <setDestinationGraph> a p:Step;
   code:implementedBy [ a code:EcmaScriptModule;
-    code:link <node:barnard59-rdf/setGraph.js#default>
-  ];
+                       code:link <node:barnard59-rdf/setGraph.js#default>
+    ];
   code:arguments ("destinationGraph"^^p:VariableName).
 
 <graphStorePut> a p:Step;
   code:implementedBy [ a code:EcmaScriptModule;
-    code:link <node:barnard59-graph-store/put.js#default>
-  ];
+                       code:link <node:barnard59-graph-store/put.js#default>
+    ];
   code:arguments [
-    code:name "endpoint";
-    code:value "ENDPOINT_URL"^^p:VariableName
-  ], [
-    code:name "user";
-    code:value "ENDPOINT_USER"^^p:VariableName
-  ], [
-    code:name "password";
-    code:value "ENDPOINT_PASSWORD"^^p:VariableName
-  ], [
-    code:name "maxQuadsPerRequest";
-    code:value 10000000
-  ].
+      code:name "endpoint";
+      code:value "ENDPOINT_URL"^^p:VariableName
+    ], [
+      code:name "user";
+      code:value "ENDPOINT_USER"^^p:VariableName
+    ], [
+      code:name "password";
+      code:value "ENDPOINT_PASSWORD"^^p:VariableName
+    ], [
+      code:name "maxQuadsPerRequest";
+      code:value 10000000
+    ].
+

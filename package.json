@@ -21,7 +21,9 @@
     "barnard59-formats": "^1.2.0",
     "barnard59-graph-store": "^1.0.1",
     "barnard59-rdf": "^1.3.1",
-    "rdf-ext": "^2.1.0"
+    "node-calls-python": "^1.7.6",
+    "rdf-ext": "^2.1.0",
+    "script": "^0.1.4"
   },
   "devDependencies": {
     "stricter-standard": "^0.2.0"
