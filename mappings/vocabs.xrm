@@ -1,23 +1,17 @@
 vocabulary ex {
-	prefix "ex" "http://example.com/"
+	prefix "ex" "http://example.org/"
+
+	properties
+		hairColor
 }
 
 vocabulary schema {
 	prefix "schema" "http://schema.org/"
 
 	classes
-		Place
+		Person
 
 	properties
-		containedInPlace
-		identifier
-		name
+		lastName
+		givenName
 }
-
-vocabulary rdfs {
-	prefix "rdfs" "http://www.w3.org/2000/01/rdf-schema#"
-
-	properties
-		seeAlso
-}
-

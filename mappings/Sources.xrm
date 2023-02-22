@@ -1,61 +1,25 @@
-xml-namespace-extension eCH_0071 {
-	prefix "eCH-0071" "http://www.ech.ch/xmlns/eCH-0071/1"
-}
-
-logical-source Canton {
-	type xml
-	source "" // seems to work for stdin with carml-jar
-	xml-namespace-extension eCH_0071
-	iterator "/eCH-0071:nomenclature/cantons/canton"
+logical-source People {
+	type json
+	source "stdin" // this is usually a file, but we want to pass this through stdin
+	iterator "$.characters[*]"
 
 	referenceables
-		cantonAbbreviation
-		cantonId
-		cantonLongName
-		cantonDateOfChange
+		id
+		name
+		firstname
+		lastname
+		hair
 }
 
-logical-source District {
-	type xml
-	source "stdin"
-	xml-namespace-extension eCH_0071
-	iterator "/eCH-0071:nomenclature/districts/district"
+logical-source PeopleXML {
+	type json
+	source "stdin" // this is usually a file, but we want to pass this through stdin
+	iterator "$.characters[*]"
 
 	referenceables
-		districtHistId
-		cantonId
-		districtId
-		districtLongName
-		districtShortName
-		districtAdmissionNumber
-		districtAdmissionMode
-		districtAdmissionDate
-		districtAbolitionNumber
-		districtAbolitionMode
-		districtAbolitionDate
-		districtDateOfChange
-}
-
-
-logical-source Municipality {
-	type xml
-	source "stdin"
-	xml-namespace-extension eCH_0071
-	iterator "/eCH-0071:nomenclature/municipalities/municipality"
-
-	referenceables
-		historyMunicipalityId
-		districtHistId
-		cantonAbbreviation
-		municipalityId
-		municipalityLongName
-		municipalityShortName
-		municipalityStatus
-		municipalityAdmissionMode
-		municipalityAdmissionDate
-		municipalityAbolitionNumber
-		municipalityAbolitionMode
-		municipalityAbolitionDate
-		municipalityDateOfChange
-		municipalityEntryMode
+		id
+		name
+		firstname
+		lastname
+		hair
 }
