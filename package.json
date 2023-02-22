@@ -1,5 +1,5 @@
 {
-  "name": "xrm-xml-workflow",
+  "name": "xrm-workflow",
   "version": "1.0.0",
   "description": "Barnard59 pipeline with sensible defaults",
   "type": "module",
@@ -18,10 +18,10 @@
   "dependencies": {
     "barnard59": "^1.1.2",
     "barnard59-carml-service": "^0.0.1",
-    "barnard59-formats": "^1.2.0",
+    "barnard59-formats": "^1.3.0",
     "barnard59-graph-store": "^1.0.1",
     "barnard59-rdf": "^1.3.1",
-    "rdf-ext": "^2.1.0"
+    "rdf-ext": "^2.2.0"
   },
   "devDependencies": {
     "stricter-standard": "^0.2.0"
