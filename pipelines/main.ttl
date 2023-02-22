@@ -25,10 +25,10 @@
     p:value "https://example.org/graph/users"
   ], [ a p:Variable;
     p:name "inputFile";
-    p:value "input/eCH0071.xml"
+    p:value "input/json-example.json"
   ], [ a p:Variable;
     p:name "mappingFile";
-    p:value "src-gen/mapping.carml.ttl"
+    p:value "src-gen/json-example.carml.ttl"
   ], [ a p:Variable;
     p:name "CARML_SERVICE";
     p:value "https://carml.zazukoians.org/"
