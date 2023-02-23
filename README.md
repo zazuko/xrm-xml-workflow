@@ -1,6 +1,6 @@
-# JSON and XML to RDF conversion template project
+# Template to transform Json or XML to RDF
 
-This is a running example of a [Barnard59](## barnard59 RDF pipelines) pipeline that convert JSON or XML files to RDF to upload it into a store.
+This is a running example of a [Barnard59](#barnard59-rdf-pipelines) pipeline that convert JSON or XML files to RDF and (optionally) upload it into a store.
 
 This repository contains:
 
@@ -24,7 +24,7 @@ npm run to-file
 
 You will see the output of the pipeline process, if all went well, the RDF file was generated at `./output/transformed.nt`
 
-What the pipeline did is to use a [CARML mapping](./src-gen/mapping.carml.ttl) to transform an [input file](./input/example.json) using a [CARML service](https://github.com/zazuko/carml-service) instance.
+What the pipeline did is to use a [mapping](./src-gen/mapping.carml.ttl) to transform an [input file](./input/example.json) using a [CARML service](https://github.com/zazuko/carml-service) instance.
 
 From now own you can write your mapping and start producing RDF. You can choose if you produce local files, or you upload them [into a store](#Run the pipeline). 
 
