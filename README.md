@@ -1,4 +1,4 @@
-# Template to transform Json or XML to RDF
+# Template to transform JSON or XML to RDF
 
 This is a running example of a [Barnard59](#barnard59-rdf-pipelines) pipeline that convert JSON or XML files to RDF and (optionally) upload it into a store.
 
