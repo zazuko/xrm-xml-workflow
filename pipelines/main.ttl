@@ -38,29 +38,31 @@
 # Pipelines
 #
 
+# Reads the input file, converts it through the CARML service, and serializes it into a file
 <toFile> a p:Pipeline;
   p:variables <defaultVars>;
   p:steps [
     p:stepList (
       <readFile>
-      <carml>
+      <carmlService>
       <serialize>
       <writeFile>
     )
   ].
 
-
+# Reads the input file, converts it through the CARML service, sets a graph and uploads it into a triplestore.
 <toStore> a p:Pipeline;
   p:variables <defaultVars>;
   p:steps [
     p:stepList (
       <readFile>
-      <carml>
+      <carmlService>
       <setDestinationGraph>
       <graphStorePut>
     )
   ].
 
+# Reads a input file, sets a graph and uploads it into a triplestore.
 <fileToStore> a p:Pipeline;
   p:variables <defaultVars>;
   p:steps [
@@ -99,7 +101,7 @@
   ];
   code:arguments ("mappingFile"^^p:VariableName).
 
-<carml> a p:Step;
+<carmlService> a p:Step;
   code:implementedBy [ a code:EcmaScript;
     code:link <node:barnard59-carml-service>
   ];
