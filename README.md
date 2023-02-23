@@ -26,7 +26,7 @@ You will see the output of the pipeline process, if all went well, the RDF file 
 
 What the pipeline did is to use a [mapping](./src-gen/mapping.carml.ttl) to transform an [input file](./input/example.json) using a [CARML service](https://github.com/zazuko/carml-service) instance.
 
-From now own you can write your mapping and start producing RDF. You can choose if you produce local files, or you upload them [into a store](#run-the-pipeline). 
+From now own you can write your mapping and start producing RDF. You can choose if you produce local files, or you upload them [into a store](#upload-to-the-store). 
 
 ## Using the template
 
@@ -54,14 +54,16 @@ The default pipeline can be run with `npm start` or `npm run to-file`. It will:
 - Convert it to RDF
 - Write it into a file as N-Triples (default: `output/transformed`)
 
+Pipeline configuration is done via environment variables and/or adjusting default variables in the pipeline itself. If you want to pass another default, have a look at the `--variable=XYZ` samples in `package.json` or consult the [barnard59 documentation](https://github.com/zazuko/barnard59#passing-arguments-to-the-pipeline). If you want to adjust it in the pipeline, open the file [pipelines/main.ttl](pipelines/main.ttl) and edit `<defaultVars> ...`.
+
+### Upload to the store
+
 There are additional pipelines configured in `package.json`:
 
 * `file-to-store`: Uploads the generated output file to an RDF store via SPARQL Graph Store Protocol
 * `to-store(-dev)`: Directly uploads to an RDF store (direct streaming in the pipeline) via SPARQL Graph Store Protocol
 
 If you want to test the upload to an RDF store, a default [Apache Jena Fuseki](https://jena.apache.org/index.html) installation with a database `data` on port `3030` should work out of the box.
-
-Pipeline configuration is done via environment variables and/or adjusting default variables in the pipeline itself. If you want to pass another default, have a look at the `--variable=XYZ` samples in `package.json` or consult the [barnard59 documentation](https://github.com/zazuko/barnard59#passing-arguments-to-the-pipeline). If you want to adjust it in the pipeline, open the file [pipelines/main.ttl](pipelines/main.ttl) and edit `<defaultVars> ...`.
 
 ## barnard59 RDF pipelines
 
