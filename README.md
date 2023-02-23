@@ -34,7 +34,7 @@ This is a GitHub template repository. It will not be declared as "fork" once you
 
 ## Writing your mappings
 
-You can choose to write the mappings by hand in the `src-gen` directory, or write XRM through a plugin. This is by far a better experience since it provides autocomplete, code-lookup and a type-safety. The XRM will be easier to maintain in the future.
+You can choose to write the mappings by hand in the `src-gen` directory, or write XRM through a [plugin](https://zazuko.com/products/expressive-rdf-mapper/). This is by far a better experience since it provides autocomplete, code-lookup and a type-safety. The XRM will be easier to maintain in the future.
 
 Set up a mapping to do a transformation:
 
