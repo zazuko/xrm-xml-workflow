@@ -1,0 +1,11 @@
+<characters>
+    <character id="0">
+        <firstname>Bob</firstname>
+        <lastname>XmlSmith</lastname>
+        <hair>black</hair>
+    </character>
+    <character id="1">
+        <firstname>Charlie</firstname>
+        <hair>orange</hair>
+    </character>
+</characters>
