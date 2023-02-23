@@ -1,6 +1,6 @@
 # Template to transform JSON or XML to RDF
 
-This is a running example of a [Barnard59](#barnard59-rdf-pipelines) pipeline that convert JSON or XML files to RDF and (optionally) upload it into a store.
+This is a running example of a [Barnard59](#about-barnard59) pipeline that convert JSON or XML files to RDF and (optionally) upload it into a store.
 
 This repository contains:
 
@@ -54,8 +54,6 @@ The default pipeline can be run with `npm start` or `npm run to-file`. It will:
 - Convert it to RDF
 - Write it into a file as N-Triples (default: `output/transformed`)
 
-Pipeline configuration is done via environment variables and/or adjusting default variables in the pipeline itself. If you want to pass another default, have a look at the `--variable=XYZ` samples in `package.json` or consult the [barnard59 documentation](https://github.com/zazuko/barnard59#passing-arguments-to-the-pipeline). If you want to adjust it in the pipeline, open the file [pipelines/main.ttl](pipelines/main.ttl) and edit `<defaultVars> ...`.
-
 ### Upload to the store
 
 There are additional pipelines configured in `package.json`:
@@ -65,7 +63,11 @@ There are additional pipelines configured in `package.json`:
 
 If you want to test the upload to an RDF store, a default [Apache Jena Fuseki](https://jena.apache.org/index.html) installation with a database `data` on port `3030` should work out of the box.
 
-## barnard59 RDF pipelines
+### Configure the pipeline
+
+Pipeline configuration is done via environment variables and/or adjusting default variables in the pipeline itself. If you want to pass another default, have a look at the `--variable=XYZ` samples in `package.json` or consult the [barnard59 documentation](https://github.com/zazuko/barnard59#passing-arguments-to-the-pipeline). If you want to adjust it in the pipeline, open the file [pipelines/main.ttl](pipelines/main.ttl) and edit `<defaultVars> ...`.
+
+## About barnard59
 
 This template is built on top of our [Zazuko](https://zazuko.com/) [barnard59](https://github.com/zazuko/barnard59) pipelining system. It is a [Node.js](https://nodejs.org) based, fully configurable pipeline framework aimed at creating RDF data out of various data sources. Unlike many other data pipelining systems, barnard59 is configured instead of programmed. In case you need to do pre- or post-processing, you can implement additional pipeline steps written in JavaScript.
 
