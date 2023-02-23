@@ -25,7 +25,7 @@
     p:value "https://example.org/graph/people"
   ], [ a p:Variable;
     p:name "inputFile";
-    p:value "input/json-example.json"
+    p:value "input/example.json"
   ], [ a p:Variable;
     p:name "mappingFile";
     p:value "src-gen/mapping.carml.ttl"

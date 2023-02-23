@@ -1,6 +1,6 @@
-output carml
+output carml // choose from carml, rml, r2rml, csvw etc  
 
-map person from People {
+map person from People { 
 	subject template personIri with id;
 
 	types
