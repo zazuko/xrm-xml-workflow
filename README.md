@@ -26,15 +26,17 @@ You will see the output of the pipeline process, if all went well, the RDF file 
 
 What the pipeline did is to use a [mapping](./src-gen/mapping.carml.ttl) to transform an [input file](./input/example.json) using a [CARML service](https://github.com/zazuko/carml-service) instance.
 
-From now own you can write your mapping and start producing RDF. You can choose if you produce local files, or you upload them [into a store](#upload-to-the-store). 
+From now own you can [write your mapping](#writing-your-mappings) and start producing RDF. You can choose if you produce local files, or you upload them [into a store](#upload-to-the-store). 
 
 ## Using the template
 
 This is a GitHub template repository. It will not be declared as "fork" once you click on the `Use this template` button above. Simply do that, start adding your data sources and create the mappings accordingly.
 
+## Writing your mappings
+
 You can choose to write the mappings by hand in the `src-gen` directory, or write XRM through a plugin. This is by far a better experience since it provides autocomplete, code-lookup and a type-safety. The XRM will be easier to maintain in the future.
 
-Typical way of doing a transformation:
+Set up a mapping to do a transformation:
 
 1. Copy the source files to the `input` directory
 2. Create/adjust the XRM files in the [mappings](./mappings) directory, the plugin will produce a CARML or RML mapping in the [src-gen](./src-gen) to transform the data.
