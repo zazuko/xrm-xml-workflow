@@ -2,40 +2,44 @@ PREFIX rr: <http://www.w3.org/ns/r2rml#>
 PREFIX rml: <http://semweb.mmlab.be/ns/rml#>
 PREFIX ql: <http://semweb.mmlab.be/ns/ql#>
 PREFIX carml: <http://carml.taxonic.com/carml/>
+PREFIX ex: <http://example.org/>
 PREFIX schema: <http://schema.org/>
 
-<#MapCanton>
+<#person>
 	a rr:TriplesMap;
 	
 	rml:logicalSource [
 		rml:source [
 			a carml:Stream;
-			carml:streamName "";
-			carml:declaresNamespace [
-				carml:namespacePrefix "eCH-0071";
-				carml:namespaceName "http://www.ech.ch/xmlns/eCH-0071/1"
-			]
+			carml:streamName "stdin"
 		];
-		rml:referenceFormulation ql:XPath;
-		rml:iterator "/eCH-0071:nomenclature/cantons/canton"
+		rml:referenceFormulation ql:JSONPath;
+		rml:iterator "$.characters[*]"
 	];
 	
 	rr:subjectMap [
-		rr:template "http://classifications.data.admin.ch/canton/{cantonAbbreviation}";
-		rr:class schema:Place
+		rr:template "http://example.org/character/{id}";
+		rr:class schema:Person
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate schema:identifier;
+		rr:predicate schema:givenName;
 		rr:objectMap [
-			rml:reference "cantonAbbreviation"
+			rml:reference "firstname"
 		]
 	];
 	
 	rr:predicateObjectMap [
-		rr:predicate schema:name;
+		rr:predicate schema:lastName;
 		rr:objectMap [
-			rml:reference "cantonLongName"
+			rml:reference "lastname"
+		]
+	];
+	
+	rr:predicateObjectMap [
+		rr:predicate ex:hairColor;
+		rr:objectMap [
+			rml:reference "hair"
 		]
 	].
 	

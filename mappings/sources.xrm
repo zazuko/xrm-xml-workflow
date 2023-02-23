@@ -1,0 +1,38 @@
+logical-source People {
+	type json
+	source "stdin" // use stdin if you plan to read from standard inputs, for example with CARML
+	// source "input/example.json"
+	iterator "$.characters[*]"
+
+	referenceables
+		id
+		firstname
+		lastname
+		hair
+}
+
+logical-source PeopleXmlExample {
+	type xml
+	// source "stdin"
+	source "input/example.xml"
+	iterator "/characters/*"
+
+	// in XML you often have XPath expressions, the need to be put in quotes and prefixed with an alias
+	referenceables
+		id "@id"
+		firstname
+		lastname
+		hair
+}
+
+logical-source PeopleCsvExample {
+	type csv
+	// source "stdin"
+	source "input/example.csv"
+
+	referenceables
+		id
+		firstname
+		lastname
+		hair
+}

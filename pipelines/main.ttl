@@ -22,10 +22,10 @@
     p:value "output/transformed.nt"
   ], [ a p:Variable;
     p:name "destinationGraph";
-    p:value "https://example.org/graph/users"
+    p:value "https://example.org/graph/people"
   ], [ a p:Variable;
     p:name "inputFile";
-    p:value "input/eCH0071.xml"
+    p:value "input/example.json"
   ], [ a p:Variable;
     p:name "mappingFile";
     p:value "src-gen/mapping.carml.ttl"
@@ -38,29 +38,31 @@
 # Pipelines
 #
 
+# Reads the input file, converts it through the CARML service, and serializes it into a file
 <toFile> a p:Pipeline;
   p:variables <defaultVars>;
   p:steps [
     p:stepList (
       <readFile>
-      <carml>
+      <carmlService>
       <serialize>
       <writeFile>
     )
   ].
 
-
+# Reads the input file, converts it through the CARML service, sets a graph and uploads it into a triplestore.
 <toStore> a p:Pipeline;
   p:variables <defaultVars>;
   p:steps [
     p:stepList (
       <readFile>
-      <carml>
+      <carmlService>
       <setDestinationGraph>
       <graphStorePut>
     )
   ].
 
+# Reads a input file, sets a graph and uploads it into a triplestore.
 <fileToStore> a p:Pipeline;
   p:variables <defaultVars>;
   p:steps [
@@ -99,7 +101,7 @@
   ];
   code:arguments ("mappingFile"^^p:VariableName).
 
-<carml> a p:Step;
+<carmlService> a p:Step;
   code:implementedBy [ a code:EcmaScript;
     code:link <node:barnard59-carml-service>
   ];

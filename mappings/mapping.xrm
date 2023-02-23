@@ -1,12 +1,13 @@
-output carml
+output carml // choose from carml, rml, r2rml, csvw etc  
 
-map MapCanton from Canton {
-    subject template cantonIri with cantonAbbreviation;
+map person from People { 
+	subject template personIri with id;
 
-    types
-        schema.Place
-        
-    properties 
-    	schema.identifier from cantonAbbreviation;
-      schema.name from cantonLongName;
+	types
+		schema.Person
+
+	properties
+		schema.givenName from firstname;
+		schema.lastName from lastname;
+		ex.hairColor from hair;
 }
