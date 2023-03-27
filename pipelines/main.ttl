@@ -45,6 +45,7 @@
     p:stepList (
       <readFile>
       <carmlService>
+      <attachMetadata>
       <serialize>
       <writeFile>
     )
@@ -57,6 +58,7 @@
     p:stepList (
       <readFile>
       <carmlService>
+      <attachMetadata>
       <setDestinationGraph>
       <graphStorePut>
     )
@@ -69,6 +71,7 @@
     p:stepList (
       <readFile>
       <parseN3>
+      <attachMetadata>
       <setDestinationGraph>
       <graphStorePut>
     )
@@ -158,3 +161,17 @@
     code:name "maxQuadsPerRequest";
     code:value 10000000
   ].
+
+#
+# Dataset metadata
+#
+
+<attachMetadata> a p:Step ;
+       code:implementedBy [ a code:EcmaScriptModule ;
+                            code:link <node:barnard59-rdf/metadata.js#append> ] ;
+       code:arguments [
+           code:name "input"; code:value "../metadata/dataset.ttl"
+         ], [
+           code:name "dateModified";
+           code:value  "TIME_NOW";
+         ].

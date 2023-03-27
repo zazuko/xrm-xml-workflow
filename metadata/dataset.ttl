@@ -1,0 +1,42 @@
+@prefix void: <http://rdfs.org/ns/void#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix dcat: <http://www.w3.org/ns/dcat#>.
+@prefix schema: <http://schema.org/>.
+@prefix org: <https://ld.admin.ch/org/>.
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix alod: <https://schema.ld.admin.ch/>.
+
+##
+## Datasets
+##
+
+<https://example.org/.well-known/void> a void:Dataset, dcat:Dataset, schema:Dataset ;
+    schema:name
+        "REPLACEME"@en ,
+        "REPLACEME"@de ,
+        "REPLACEME"@fr ,
+        "REPLACEME"@it ;
+    schema:description
+        "REPLACEME"@en ,
+        "REPLACEME"@de ,
+        "REPLACEME"@fr ,
+        "REPLACEME"@it ;
+    schema:contactPoint [
+        a schema:ContactPoint ;
+        schema:name "REPLACEME" ;
+        schema:email "REPLACEME" ];
+    schema:contributor <https://register.ld.admin.ch/zefix/company/1198554> ;
+    schema:publisher <https://publisher.org/organization/example> ;
+    schema:dateCreated "2022-11-30"^^xsd:date;
+    schema:datePublished "2022-11-30"^^xsd:date;
+    void:exampleResource <https://publisher.org/instance/example> ;
+    void:sparqlEndpoint <https://publisher.org/query/> ;
+    dcat:landingPage <https://publisher.org/webpage> ;
+    dcat:accessURL <https://publisher.org/sparql/> ;
+.
+
