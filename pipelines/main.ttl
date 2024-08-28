@@ -62,12 +62,12 @@
     )
   ].
 
-# Reads a input file, sets a graph and uploads it into a triplestore.
+# Reads the generated output file, sets a graph and uploads it into a triplestore.
 <fileToStore> a p:Pipeline;
   p:variables <defaultVars>;
   p:steps [
     p:stepList (
-      <readFile>
+      <readOutputFile>
       <parseN3>
       <setDestinationGraph>
       <graphStorePut>
@@ -83,6 +83,12 @@
     code:link <node:fs#createReadStream>
   ];
   code:arguments ("inputFile"^^p:VariableName).
+
+<readOutputFile> a p:Step;
+  code:implementedBy [ a code:EcmaScriptModule;
+    code:link <node:fs#createReadStream>
+  ];
+  code:arguments ("outputFile"^^p:VariableName).
 
 <parseN3> a p:Step;
   code:implementedBy [ a code:EcmaScriptModule;
@@ -146,6 +152,9 @@
     code:link <node:barnard59-graph-store/put.js#default>
   ];
   code:arguments [
+    code:name  "graph" ;
+    code:value "destinationGraph"^^p:VariableName
+  ], [
     code:name "endpoint";
     code:value "ENDPOINT_URL"^^p:VariableName
   ], [
