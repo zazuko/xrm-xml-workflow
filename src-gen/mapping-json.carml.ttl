@@ -5,7 +5,7 @@ PREFIX carml: <http://carml.taxonic.com/carml/>
 PREFIX ex: <http://example.org/>
 PREFIX schema: <http://schema.org/>
 
-<#person>
+<#person1>
 	a rr:TriplesMap;
 	
 	rml:logicalSource [

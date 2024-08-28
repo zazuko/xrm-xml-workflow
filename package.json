@@ -4,13 +4,16 @@
   "description": "Barnard59 pipeline with sensible defaults",
   "type": "module",
   "main": "index.js",
-  "scripts": {
-    "start": "mkdir -p output && barnard59 run -v --pipeline=http://example.org/pipeline/toFile pipelines/main.ttl",
-    "to-file": "mkdir -p output && barnard59 run -v --pipeline=http://example.org/pipeline/toFile pipelines/main.ttl",
+  "scripts": {    
+    "json-to-file": "mkdir -p output && barnard59 run -v --pipeline=http://example.org/pipeline/toFile pipelines/main.ttl --variable inputFile=input/example.json --variable mappingFile=src-gen/mapping-json.carml.ttl",
+    "xml-to-file":  "mkdir -p output && barnard59 run -v --pipeline=http://example.org/pipeline/toFile pipelines/main.ttl --variable inputFile=input/example.xml  --variable mappingFile=src-gen/mapping-xml.carml.ttl",
+    "csv-to-file":  "mkdir -p output && barnard59 run -v --pipeline=http://example.org/pipeline/toFile pipelines/main.ttl --variable inputFile=input/example.csv  --variable mappingFile=src-gen/mapping-csv.carml.ttl",
+
     "file-to-store": "barnard59 run -v --pipeline=http://example.org/pipeline/fileToStore pipelines/main.ttl --variable=ENDPOINT_URL --variable=ENDPOINT_USER --variable=ENDPOINT_PASSWORD",
     "file-to-store-dev": "barnard59 run -v --pipeline=http://example.org/pipeline/fileToStore pipelines/main.ttl",
-    "to-store": "barnard59 run -v --pipeline=http://example.org/pipeline/toStore pipelines/main.ttl --variable=ENDPOINT_URL --variable=ENDPOINT_USER --variable=ENDPOINT_PASSWORD",
-    "to-store-dev": "barnard59 run -v --pipeline=http://example.org/pipeline/toStore pipelines/main.ttl"
+
+    "json-to-store": "barnard59 run -v --pipeline=http://example.org/pipeline/toStore pipelines/main.ttl --variable inputFile=input/example.json --variable mappingFile=src-gen/mapping-json.carml.ttl --variable=ENDPOINT_URL --variable=ENDPOINT_USER --variable=ENDPOINT_PASSWORD",
+    "json-to-store-dev": "barnard59 run -v --pipeline=http://example.org/pipeline/toStore pipelines/main.ttl --variable inputFile=input/example.json --variable mappingFile=src-gen/mapping-json.carml.ttl"
   },
   "author": "Zazuko",
   "license": "MIT",
