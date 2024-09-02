@@ -1,6 +1,6 @@
-# Template to transform JSON or XML to RDF
+# Template to transform JSON, XML or CSV to RDF
 
-This is a running example of a [Barnard59](#about-barnard59) pipeline that convert JSON or XML files to RDF and (optionally) upload it into a store.
+This is a running example of a [Barnard59](#about-barnard59) pipeline that convert JSON, XML or CSV files to RDF and (optionally) upload it into a store.
 
 This repository contains:
 
@@ -16,15 +16,15 @@ This repository contains:
 npm install
 ```
 
-* Run the barnard59 workflow to produce a file
+* Run the barnard59 workflow to produce a file, for example:
 
 ```sh
-npm run to-file
+npm run json-to-file
 ```
 
 You will see the output of the pipeline process, if all went well, the RDF file was generated at `./output/transformed.nt`
 
-What the pipeline did is to use a [mapping](./src-gen/mapping.carml.ttl) to transform an [input file](./input/example.json) using a [CARML service](https://github.com/zazuko/carml-service) instance.
+What the pipeline did is to use a [mapping](./src-gen/mapping-json.carml.ttl) to transform an [input file](./input/example.json) using a [CARML service](https://github.com/zazuko/carml-service) instance.
 
 From now own you can [write your mapping](#writing-your-mappings) and start producing RDF. You can choose if you produce local files, or you upload them [into a store](#upload-to-the-store). 
 
@@ -38,7 +38,7 @@ You can choose to write the mappings by hand in the `src-gen` directory, or writ
 
 Set up a mapping to do a transformation:
 
-1. Copy the source files to the `input` directory
+1. Copy the source file to the `input` directory
 2. Create/adjust the XRM files in the [mappings](./mappings) directory, the plugin will produce a CARML or RML mapping in the [src-gen](./src-gen) to transform the data.
 3. Execute one of the run-scripts to convert your data.
 
@@ -50,24 +50,29 @@ See [Further reading](#further-reading) for more information about the XRM mappi
 
 ## Run the pipeline
 
-The default pipeline can be run with `npm start` or `npm run to-file`. It will:
+The default pipeline can be run with `npm run json-to-file`. It will:
 
-- Read the input files (default: `input/example.json`)
+- Read the JSON input file (default: `input/example.json`)
 - Convert it to RDF
-- Write it into a file as N-Triples (default: `output/transformed`)
+- Write it into a file as N-Triples (default: `output/transformed.nt`)
+
+To convert XML input, run `npm run xml-to-file`.
+
+To convert CSV input, run `npm run csv-to-file`.
+
 
 ### Upload to the store
 
 There are additional pipelines configured in `package.json`:
 
-* `file-to-store`: Uploads the generated output file to an RDF store via SPARQL Graph Store Protocol
-* `to-store(-dev)`: Directly uploads to an RDF store (direct streaming in the pipeline) via SPARQL Graph Store Protocol
+* `file-to-store(-dev)`: Uploads the generated output file to an RDF store via SPARQL Graph Store Protocol
+* `json-to-store(-dev)`: Directly uploads to an RDF store (direct streaming in the pipeline) via SPARQL Graph Store Protocol
 
 If you want to test the upload to an RDF store, a default [Apache Jena Fuseki](https://jena.apache.org/index.html) installation with a database `data` on port `3030` should work out of the box.
 
 ### Configure the pipeline
 
-Pipeline configuration is done via environment variables and/or adjusting default variables in the pipeline itself. If you want to pass another default, have a look at the `--variable=XYZ` samples in `package.json` or consult the [barnard59 documentation](https://github.com/zazuko/barnard59#passing-arguments-to-the-pipeline). If you want to adjust it in the pipeline, open the file [pipelines/main.ttl](pipelines/main.ttl) and edit `<defaultVars> ...`.
+Pipeline configuration is done via environment variables and/or adjusting default variables in the pipeline itself. If you want to pass another default, have a look at the `--variable=XYZ` samples in `package.json` or consult the [barnard59 documentation](https://github.com/zazuko/barnard59/blob/master/packages/cli/README.md#passing-arguments-to-the-pipeline). If you want to adjust it in the pipeline, open the file [pipelines/main.ttl](pipelines/main.ttl) and edit `<defaultVars> ...`.
 
 ## About barnard59
 

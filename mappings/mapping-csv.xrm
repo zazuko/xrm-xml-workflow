@@ -1,0 +1,13 @@
+output rml
+
+map person3 from PeopleCsvExample { 
+	subject template personIri with id;
+
+	types
+		schema.Person
+
+	properties
+		schema.givenName from firstname;
+		schema.lastName from lastname;
+		ex.hairColor from hair;
+}
