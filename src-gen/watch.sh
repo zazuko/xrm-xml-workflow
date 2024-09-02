@@ -1,13 +1,17 @@
 #!/bin/bash
 
-input_file="../input/example.json"
-output_file="./output.ttl"
+# This script watches for changes in the mapping file and runs the transformation automatically whenever the mapping file changes.
+# It requires that "inotifywait" is installed on the system.
+# It downloads and invokes carml-jar directly (different from the default pipeline which is using carml-service).
 
-mapping="mapping.carml.ttl"
+input_file="../input/example.json"
+output_file="../output/dev-transformed.ttl"
+
+mapping="mapping-json.carml.ttl"
 temp_mapping="__temp__.ttl"
 
 
-url="https://github.com/carml/carml-jar/releases/download/carml-jar-1.1.0/carml-jar-rdf4j-1.1.0-0.4.6.jar"
+url="https://github.com/carml/carml-jar/releases/download/v1.3.0/carml-jar-rdf4j-1.3.0-0.4.9.jar"
 destination="./carml-jar.jar"
 
 # Check if the file already exists

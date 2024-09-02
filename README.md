@@ -74,6 +74,16 @@ If you want to test the upload to an RDF store, a default [Apache Jena Fuseki](h
 
 Pipeline configuration is done via environment variables and/or adjusting default variables in the pipeline itself. If you want to pass another default, have a look at the `--variable=XYZ` samples in `package.json` or consult the [barnard59 documentation](https://github.com/zazuko/barnard59/blob/master/packages/cli/README.md#passing-arguments-to-the-pipeline). If you want to adjust it in the pipeline, open the file [pipelines/main.ttl](pipelines/main.ttl) and edit `<defaultVars> ...`.
 
+
+## Watch script (dev-mode)
+
+While developing or changing the mapping, it might be useful to run the transformation automatically whenever the mapping file changes. This can be helpful in order to get quick feedback and validate modifications incrementally.
+
+There is a simple script that shows how this could be done: `src-gen/watch.sh`
+
+Running that script is alternative to running the pipeline as described above. The watch script requires that `inotifywait` is installed on the system. The script downloads and invokes carml-jar directly (different from the pipeline which is using carml-service).
+
+
 ## About barnard59
 
 This template is built on top of our [Zazuko](https://zazuko.com/) [barnard59](https://github.com/zazuko/barnard59) pipelining system. It is a [Node.js](https://nodejs.org) based, fully configurable pipeline framework aimed at creating RDF data out of various data sources. Unlike many other data pipelining systems, barnard59 is configured instead of programmed. In case you need to do pre- or post-processing, you can implement additional pipeline steps written in JavaScript.
